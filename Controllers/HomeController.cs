@@ -36,14 +36,51 @@ namespace TPLOCAL1.Controllers
 
 
         //methode to send datas from form to validation page
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="infopage"></param>
+        /// <returns></returns>
         [HttpPost]
-        public ActionResult ValidationFormulaire(/*model*/)
+        public ActionResult ValidationFormulaire(FormModel model)
         {
             //TODO : test if model's fields are set
             //if not, display an error message and stay on the form page
             //else, call ValidationForm with the datas set by the user
-            return null;
+            //if (modelv.Address == null || modelv.Address.Length < 5)
+            //{
+            //    ModelState.AddModelError("", "address too short");
+            //}
 
+            // if (ModelState.IsValid)
+            //{
+            //    var model = new FormationModel { InfoPage = infopage };
+            // All data is valid, show success page
+            //    return RedirectToAction("ValidationForm", model);
+            //}
+            //else
+            //{
+            // Validation failed, return to the form with errors
+            //    return View("Form");
+            //}
+            //return null;
+            
+        {
+            if (ModelState.IsValid)
+            {
+                return RedirectToAction("ValidationForm", model);
+            }
+
+            return View(model);
         }
+        }
+        public IActionResult ValidationPage(ErrorViewModel model)
+        {
+            return View(model);  // La vue de validation affichera les données
+        }
+
+
+
+
     }
 }

@@ -1,0 +1,55 @@
+﻿.image {
+    width: 150px;
+    height: 150px;
+    
+}
+h1 {
+    margin-right: 170px;
+    margin-left: 170px;
+    text-align: center;
+    
+
+}
+.image, h1 {
+    display: inline-block;
+    vertical-align: middle;
+}
+Nav {
+    width: 150px;
+    border: 2px solid #8c014c;
+    background-color: #8c014c;
+    color: white;
+    float: left;
+}
+
+li {
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+
+a {
+    color: chocolate;
+}
+section {
+    margin-left: 170px;
+}
+table {
+    border-collapse;
+    border-style :solid ;
+    border-radius : 10px;
+}
+tr {
+    border-collapse;
+    border-style : solid;
+}
+th {
+    text-align: center;
+   
+}
+td {
+    border-collapse;
+    border-style: solid;
+}
+p1 {
+    margin-left : 50px;
+}

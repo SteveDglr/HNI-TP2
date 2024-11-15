@@ -1,0 +1,131 @@
+﻿@model YourNamespace.Models.FormModel
+@Html.ValidationSummary(false, "")
+<title>HN - TP LOCAL</title>
+<header>
+    <img src="~/resources/GroupeHN.png" class="image" alt="GroupeHN" />
+    <h1>Formulaire TP HN avis</h1>
+    <link rel="stylesheet" href="~/resources/Index.css" />
+</header>
+
+
+<body>
+    <nav>
+        <ul>
+            <li><a href="/Home">Acceuil</a></li>
+            <li><a href="AvisList">Liste des avis</a></li>
+        </ul>
+    </nav>
+    <section>
+        <form method="post" action="@Url.Action("ValidationForm", "Home")">
+
+       
+        
+        <table>
+            <tr>
+                <th colspan="2" class="title-center">Informations personnelles</th>
+            </tr>
+            <tr>
+                <td>Nom</td>
+                <td>
+                    <input type="text" name="Nom" required>
+                </td>
+            </tr>
+            <tr>
+                <td> Prénom </td>
+                <td>
+                    <input type="text" id="Prenom" required>
+                </td>
+            </tr>
+            <tr>
+                <td> Sexe </td>
+                <td>
+                    <select name="sexe" id="sexe">
+                        <option value="Sélectionner un sexe">Sélectionner un sexe</option>
+                        <option value="Homme">Homme</option>
+                        <option value="Femme">Femme</option>
+                        <option value="Autre">Autre</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td> Adresse </td>
+                <td>
+                    <input type="text" id="Adresse" required>
+                </td>
+            </tr>
+            <tr>
+                <td> Code Postal </td>
+                <td>
+                    <input type="text" id="CodePostal" pattern="^\d{5}$" required title="Merci de rentrer un code postal à 5 chiffres">
+                </td>
+            </tr>
+            <tr>
+                <td> Ville </td>
+                <td>
+                    <input type="text" id="Ville" required>
+                </td>
+            </tr>
+            <tr>
+                <td> Adresse Mail </td>
+                <td>
+                    <input type="email" id="Email">
+                    
+                </td>
+            </tr>
+        </table>
+        
+        <table>
+            <tr>
+                <th colspan="2" class="title-center">
+                    Informations formation suivie
+                </th>
+            </tr>
+            <tr>
+                <td> Date début formation </td>
+                <td>
+                    <input type="date" max="2021-01-01" id="DebForm" required>
+                </td>
+            </tr>
+            <tr>
+                <td> Formations suivies </td>
+                <td>
+                    <select name="Form" id="Form">
+                        <option value="Sélectionner une formation">Sélectionner une formation</option>
+                        <option value="Cobol">Cobol</option>
+                        <option value="Objet">Objet</option>
+                        <option value="Les deux">Les deux</option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+       
+        <table>
+            <tr>
+                <th colspan="2" class="title-center">
+                    Avis sur la formation
+                </th>
+            </tr>
+            <tr>
+                <td> Formation Cobol </td>
+                <td>
+                    <input type="text" id="Cobol" required>
+                </td>
+            </tr>
+            <tr>
+                <td> Formation C# </td>
+                <td>
+                    <input type="text" id="Dotnet" required>
+                </td>
+            </tr>
+            </table>
+        </form>
+        <form method="post" asp-action="ValidationFormulaire">
+        <button type="submit">Valider</button>
+            
+        </form>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    </section>
+    
+    
+
+</body>
