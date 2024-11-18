@@ -68,7 +68,7 @@ namespace TPLOCAL1.Controllers
         {
             if (ModelState.IsValid)
             {
-                return RedirectToAction("ValidationForm", model);
+                return RedirectToAction("Validation", model);
             }
 
             return View(model);
@@ -78,9 +78,25 @@ namespace TPLOCAL1.Controllers
         {
             return View(model);  // La vue de validation affichera les données
         }
+// Action pour afficher la liste des avis
+public IActionResult ListReviews()
+        {
+            // Spécifiez le chemin vers votre fichier XML (exemple : "wwwroot/avis.xml")
+            string filePath = "chemin/vers/votre/fichier.xml";
 
+            // Instanciation de la classe OpinionList et récupération des avis
+            OpinionList opinionList = new OpinionList();
+            var opinions = opinionList.GetAvis(filePath);
 
+            // Passer la liste des avis à la vue
+            return View(opinions);
+        }
 
 
     }
 }
+
+    
+        
+        
+  

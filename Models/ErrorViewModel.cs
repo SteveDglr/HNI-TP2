@@ -35,7 +35,8 @@ namespace TPLOCAL1.Models
 
         [Required]
         [DataType(DataType.Date)]
-        [Range(typeof(DateTime), "1/1/2000", "12/31/2020", ErrorMessage = "La date doit être avant le 01/01/2021")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
+        //[Range(typeof(DateTime), "1/1/2000", "12/31/2020", ErrorMessage = "La date doit être avant le 01/01/2021")]
         public DateTime DebForm { get; set; }
 
         [Required]

@@ -6,7 +6,7 @@ using System.Web;
 using System.Xml;
 
 
-//This file is not to be modified
+
 namespace TPLOCAL1.Models
 {
     public class OpinionList
@@ -78,3 +78,4 @@ namespace TPLOCAL1.Models
         public string OpinionGiven { get; set; }
     }
 }
+
