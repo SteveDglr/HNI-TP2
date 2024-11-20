@@ -1,102 +1,96 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-
 using TPLOCAL1.Models;
+using System.Xml.Serialization;
+using System.IO;
+using System.Collections.Generic;
 
-//Subject is find at the root of the project and the logo in the wwwroot/ressources folders of the solution
-//--------------------------------------------------------------------------------------
-//Careful, the MVC model is a so-called convention model instead of configuration,
-//The controller must imperatively be name with "Controller" at the end !!!
 namespace TPLOCAL1.Controllers
 {
     public class HomeController : Controller
     {
-        //methode "naturally" call by router
+        // Méthode d'index, appelée par le router
         public ActionResult Index(string id)
         {
             if (string.IsNullOrWhiteSpace(id))
-                //retourn to the Index view (see routing in Program.cs)
                 return View();
             else
             {
-                //Call different pages, according to the id pass as parameter
                 switch (id)
                 {
                     case "OpinionList":
-                        //TODO : code reading of the xml files provide
-                        return View(id);
+                        var opinions = ReadOpinionsFromXml();
+                        return View("OpinionList", opinions);
                     case "Form":
-                        //TODO : call the Form view with data model empty
-                        return View(id);
+                        var formModel = new FormModel(); // Créez un modèle de formulaire vide
+                        return View("Form", formModel);
                     default:
-                        //retourn to the Index view (see routing in Program.cs)
                         return View();
                 }
             }
         }
+        public IActionResult Form()
+        {
+            // Assurez-vous que FormModel est correctement initialisé
+            var formModel = new FormModel
+            {
+                Form = "Sélectionner une formation" // Initialisez la valeur par défaut
+            };
+
+            return View(formModel);
+        }
 
 
-        //methode to send datas from form to validation page
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="infopage"></param>
-        /// <returns></returns>
+        // Méthode pour lire les avis depuis un fichier XML
+        private List<Opinion> ReadOpinionsFromXml()
+        {
+            string filePath = Path.Combine(Directory.GetCurrentDirectory(), "Data", "opinions.xml");
+            if (!System.IO.File.Exists(filePath))
+            {
+                return new List<Opinion>();  // Retourne une liste vide si le fichier n'existe pas
+            }
+
+            var serializer = new XmlSerializer(typeof(List<Opinion>), new XmlRootAttribute("Opinions"));
+            using (var reader = new StreamReader(filePath))
+            {
+                return (List<Opinion>)serializer.Deserialize(reader);
+            }
+        }
+
+        // Méthode pour envoyer les données du formulaire à la page de validation
         [HttpPost]
         public ActionResult ValidationFormulaire(FormModel model)
         {
-            //TODO : test if model's fields are set
-            //if not, display an error message and stay on the form page
-            //else, call ValidationForm with the datas set by the user
-            //if (modelv.Address == null || modelv.Address.Length < 5)
-            //{
-            //    ModelState.AddModelError("", "address too short");
-            //}
-
-            // if (ModelState.IsValid)
-            //{
-            //    var model = new FormationModel { InfoPage = infopage };
-            // All data is valid, show success page
-            //    return RedirectToAction("ValidationForm", model);
-            //}
-            //else
-            //{
-            // Validation failed, return to the form with errors
-            //    return View("Form");
-            //}
-            //return null;
-            
-        {
             if (ModelState.IsValid)
             {
-                return RedirectToAction("Validation", model);
+                // Créez un FormationModel et envoyez-le à la vue ValidationForm
+                var formationModel = new FormationModel { InfoPage = model };
+                return RedirectToAction("ValidationForm", new { model = formationModel });
             }
+            // Si le modèle est invalide, retourner à la vue Form avec des erreurs
+            return View("Form", model);
+        }
 
-            return View(model);
-        }
-        }
-        public IActionResult ValidationPage(ErrorViewModel model)
+        // Méthode pour afficher la page de validation avec les données du modèle
+        public IActionResult ValidationForm(FormationModel model)
         {
-            return View(model);  // La vue de validation affichera les données
+            if (model != null)
+            {
+                return View(model);
+            }
+            return View("Form");
         }
-// Action pour afficher la liste des avis
-public IActionResult ListReviews()
-        {
-            // Spécifiez le chemin vers votre fichier XML (exemple : "wwwroot/avis.xml")
-            string filePath = "chemin/vers/votre/fichier.xml";
 
-            // Instanciation de la classe OpinionList et récupération des avis
+        // Action pour afficher la liste des avis
+        public IActionResult ListReviews()
+        {
+            string filePath = Path.Combine(Directory.GetCurrentDirectory(), "Data", "DataAvis.xml");
             OpinionList opinionList = new OpinionList();
             var opinions = opinionList.GetAvis(filePath);
-
-            // Passer la liste des avis à la vue
             return View(opinions);
         }
-
-
     }
 }
 
-    
-        
-        
-  
+
+
+
