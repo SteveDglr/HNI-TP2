@@ -40,7 +40,7 @@
                 <td> Sexe </td>
                 <td>
                     <select name="sexe" required>
-                        <option value="Sélectionner un sexe" value="@(Model.Sexe == "Sélectionner un sexe" ? "selected": "")">Sélectionner un sexe</option>
+                        <option value="@(Model.Sexe == "Sélectionner un sexe" ? "selected": "")">Sélectionner un sexe</option>
                         <option value="Homme">Homme</option>
                         <option value="Femme">Femme</option>
                         <option value="Autre">Autre</option>
@@ -90,7 +90,7 @@
                 <td> Formations suivies </td>
                 <td>
                     <select name="Form" required>
-                        <option value="Sélectionner une formation" value="@(Model?.Form == "Sélectionner une formation" ? "selected" : "")">Sélectionner une formation</option>
+                        <option value="@(Model?.Form =="Sélectionner une formation" ? "selected" : "")">Sélectionner une formation</option>
                         <option value="Cobol">Cobol</option>
                         <option value="Objet">Objet</option>
                         <option value="Les deux">Les deux</option>
